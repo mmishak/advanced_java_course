@@ -1,7 +1,5 @@
 package edu.technopolis.homework;
 
-import java.util.Scanner;
-
 /**
  * Matrix multiplication home task.
  * <br/>
@@ -10,14 +8,12 @@ import java.util.Scanner;
 public class MatrixMultiplication {
     public static void main(String... args) {
 
-        Scanner s = new Scanner(System.in);
-
         try {
 
-            int n = s.nextInt();
-            int m = s.nextInt();
-            int x = s.nextInt();
-            int y = s.nextInt();
+            int n = Integer.valueOf(args[0]);
+            int m = Integer.valueOf(args[1]);
+            int x = Integer.valueOf(args[2]);
+            int y = Integer.valueOf(args[3]);
 
             if ( n <= 0 )
                 throw new Exception("n <= 0, n = " + n);
@@ -34,15 +30,19 @@ public class MatrixMultiplication {
             int[][] matrixB = new int[x][y];
             int[][] matrixC = new int[n][y];
 
+            int currentIndex = 4;
+
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < m; j++) {
-                    matrixA[i][j] = s.nextInt();
+                    matrixA[i][j] = Integer.valueOf( args[currentIndex] );
+                    currentIndex++;
                 }
             }
 
             for (int i = 0; i < x; i++) {
                 for (int j = 0; j < y; j++) {
-                    matrixB[i][j] = s.nextInt();
+                    matrixB[i][j] = Integer.valueOf( args[currentIndex] );
+                    currentIndex++;
                 }
             }
 
