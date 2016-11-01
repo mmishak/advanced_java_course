@@ -10,21 +10,19 @@ public class MatrixMultiplication {
 
         try {
 
+            if ( args.length < 4 )
+                throw new NumArgumentExeption();
+
             int n = Integer.valueOf(args[0]);
             int m = Integer.valueOf(args[1]);
             int x = Integer.valueOf(args[2]);
             int y = Integer.valueOf(args[3]);
 
-            if ( n <= 0 )
-                throw new Exception("n <= 0, n = " + n);
-            if ( m <= 0 )
-                throw new Exception("m <= 0, m = " + n);
-            if ( x <= 0 )
-                throw new Exception("x <= 0, x = " + n);
-            if ( y <= 0 )
-                throw new Exception("y <= 0, y = " + n);
-            if (Integer.compare(m, x) != 0)
-                throw new Exception("m != x, m = " + m + ", x = " + x);
+            if ( n <= 0 || m <= 0 || x <= 0 || y <=0 || Integer.compare(m, x) != 0 )
+                throw new ArraySizeExaption();
+
+            if ( args.length != (4 + (n * m) + (x * y)) )
+                throw new NumArgumentExeption();
 
             int[][] matrixA = new int[n][m];
             int[][] matrixB = new int[x][y];
@@ -57,7 +55,31 @@ public class MatrixMultiplication {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static class ArraySizeExaption extends Exception{
+        @Override
+        public String getMessage(){
+            return "Неверно задан размер одного из массивов.\n" +
+                    "Проверьте, что размеры массивов больше нуля," +
+                    " а также, что данные размеры удовлетворяют условию " +
+                    "перемножения матриц:\n\n" +
+                    "A(N x M) * B(X x Y), где M = X";
+        }
+    }
+
+    public static class NumArgumentExeption extends Exception{
+        @Override
+        public String getMessage(){
+            return "Неверное количество аргументов.\n" +
+                    "Проверьте, что ввод соответствует следующему формату:\n\n" +
+                    "N M X Y A_1_1 ... A_N_M B_1_1 ... B_X_Y\n\n" +
+                    "N и M\t\t\t- размерность первой матрицы A (количество строк и столбцов),\n" +
+                    "A_1_1 ... A_N_M\t- элементы матрицы A,\n" +
+                    "X и Y\t\t\t- размерность второй матрицы B,\n" +
+                    "B_1_1 ... B_X_Y\t- элементы матрицы B.";
         }
     }
 }
